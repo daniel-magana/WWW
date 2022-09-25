@@ -29,11 +29,14 @@ type Documento{
     edicion: String!
     categoria: String!
     tipo_medio: String!
+    ejemplares: [Ejemplar]
 }
 
 type Ejemplar{
     id: ID!
+    prestamos: [Prestamo]
     idDocumento: Documento
+    detalles: [DetalleSolicitud]
     estado: String!
     ubicacion: String!
 }
@@ -41,6 +44,7 @@ type Ejemplar{
 type Prestamo{
     id: ID!
     tipo: String!
+    idUsuario: Usuario
     idEjemplar: Ejemplar
     fecha_prestamo: String!
     hora_prestamo: String!
@@ -58,11 +62,14 @@ type Usuario{
     direccion: String!
     telefono: String!
     activo: String!
+    prestamos: [Prestamo]
+    solicitudes: [Solicitud]
 }
 
 type Solicitud{
     id: ID!
     idUsuario: Usuario
+    detalles: [DetalleSolicitud]
     fecha: String!
     hora: String!
 }
@@ -90,23 +97,27 @@ input DocumentoInput{
     edicion: String!
     categoria: String!
     tipo_medio: String!
+    ejemplares: String
 }
 
 input EjemplarInput{
-    idDocumento: String
+    prestamos: String
+    idDocumento: String!
+    detalles: String
     estado: String!
     ubicacion: String!
 }
 
 input PrestamoInput{
     tipo: String!
-    idEjemplar: String
+    idUsuario: String!
+    idEjemplar: String!
     fecha_prestamo: String!
     hora_prestamo: String!
     fecha_devolucion: String!
     hora_devolucion: String!
-    fecha_devolucion_real: String!
-    hora_devolucion_real: String!
+    fecha_devolucion_real: String
+    hora_devolucion_real: String
 }
 
 input UsuarioInput{
@@ -116,17 +127,20 @@ input UsuarioInput{
     direccion: String!
     telefono: String!
     activo: String!
+    prestamos: String
+    solicitudes: String
 }
 
 input SolicitudInput{
-    idUsuario: String
+    idUsuario: String!
+    detalles: String
     fecha: String!
     hora: String!
 }
 
 input DetalleSolicitudInput{
-    idSolicitud: String
-    idEjemplar: String
+    idSolicitud: String!
+    idEjemplar: String!
 }
 
 
@@ -153,81 +167,85 @@ type Query{
 
 type Mutation{
     addDocumento(input: DocumentoInput): Documento
-    updateDocumento(id: ID!, input: DocumentoInput): Documento
+    ejemplarDeDocumento(idDocumento: ID!, idEjemplar: ID!): Documento
     deleteDocumento(id: ID!): Alert
     
     addEjemplar(input: EjemplarInput): Ejemplar
+    prestamoDeEjemplar(idEjemplar: ID!, idPrestamo: ID!): Ejemplar
+    detalleDeEjemplar(idEjemplar: ID!, idDetalle: ID!): Ejemplar
     deleteEjemplar(id: ID!): Alert
     
     addPrestamo(input: PrestamoInput): Prestamo
     deletePrestamo(id: ID!): Alert
 
     addUsuario(input: UsuarioInput): Usuario
-    updateUsuario(id: ID!, input: UsuarioInput): Usuario
+    prestamoDeUsuario(idUsuario: ID!, idPrestamo: ID!): Usuario
+    solicitudDeUsuario(idUsuario: ID!, idSolicitud: ID!): Usuario
     deleteUsuario(id: ID!): Alert
     
     addSolicitud(input: SolicitudInput): Solicitud
+    detalleDeSolicitud(idSolicitud: ID!, idDetalle: ID!): Solicitud
     deleteSolicitud(id: ID!): Alert
     
     addDetalleSolicitud(input: DetalleSolicitudInput): DetalleSolicitud
     deleteDetalleSolicitud(id: ID!): Alert
 }
 `;
-//Falta devolver los update quizas?
+//Falta los update quizas?
 
 const resolvers = {
     Query: {
         async getDocumentos(obj){
-            const documentos = await Documento.find();
+            const documentos = await Documento.find().populate("ejemplares", "id");
             return documentos;
         },
         async getDocumento(obj, {id}){
-            const documento = await Documento.findById(id);
+            const documento = await Documento.findById(id).populate("ejemplares", "id");
             return documento;
         },
         
         async getEjemplares(obj){
-            const ejemplares = await Ejemplar.find().populate('idDocumento');
+            const ejemplares = await Ejemplar.find().populate([{path: "idDocumento", select: "id"}, {path: "prestamos", select: "id"}, {path: "detalles", select: "id"}]);
             return ejemplares;
         },
         async getEjemplar(obj, {id}){
-            const ejemplar = await Ejemplar.findById(id).populate('idDocumento');
+            const ejemplar = await Ejemplar.findById(id).populate([{path: "idDocumento", select: "id"}, {path: "prestamos", select: "id"}, {path: "detalles", select: "id"}]);
             return ejemplar;
         },
         
         async getPrestamos(obj){
-            const prestamos = await Prestamo.find().populate('idEjemplar');
+            const prestamos = await Prestamo.find().populate([{path: "idUsuario", select: "id"}, {path: "idEjemplar", select: "id"}]);
             return prestamos;
         },
         async getPrestamo(obj, {id}){
-            const prestamo = await Prestamo.findById(id).populate('idEjemplar');
+            const prestamo = await Prestamo.findById(id).populate([{path: "idUsuario", select: "id"}, {path: "idEjemplar", select: "id"}]);
             return prestamo;
         },
         
         async getUsuarios(obj){
-            const usuarios = await Usuario.find();
+            const usuarios = await Usuario.find().populate([{path: "prestamos", select: "id"}, {path: "solicitudes", select: "id"}]);
             return usuarios;
         },
         async getUsuario(obj, {id}){
-            const usuario = await Usuario.findById(id);
+            const usuario = await Usuario.findById(id).populate([{path: "prestamos", select: "id"}, {path: "solicitudes", select: "id"}]);
             return usuario;
         },
         
         async getSolicitudes(obj){
-            const solicitudes = await Solicitud.find().populate('idUsuario');
+            const solicitudes = await Solicitud.find().populate([{path: "idUsuario", select: "id"}, {path: "detalles", select: "id"}]);
             return solicitudes;
         },
         async getSolicitud(obj, {id}){
-            const solicitud = await Solicitud.findById(id).populate('idUsuario');
+            const solicitud = await Solicitud.findById(id).populate([{path: "idUsuario", select: "id"}, {path: "detalles", select: "id"}]);
             return solicitud;
         },
         
         async getDetalleSolicitudes(obj){
-            const detallesolicitudes = await DetalleSolicitud.find().populate(['idSolicitud', 'idEjemplar']);
+            const detallesolicitudes = await DetalleSolicitud.find().populate([{path: "idSolicitud", select: "id"}, {path: "idEjemplar", select: "id"}]);
             return detallesolicitudes;
         },
         async getDetalleSolicitud(obj, {id}){
-            const detallesolicitud = await DetalleSolicitud.findById(id).populate(['idSolicitud', 'idEjemplar']);
+            const detallesolicitud = await DetalleSolicitud.findById(id).populate([{path: "idSolicitud", select: "id"}, {path: "idEjemplar", select: "id"}]);
             return detallesolicitud;
         }
     },
@@ -237,8 +255,11 @@ const resolvers = {
             await documento.save();
             return documento;
         },
-        async updateDocumento(obj, {id, input}){
-            const documento = await Documento.findByIdAndUpdate(id, input);
+        async ejemplarDeDocumento(obj, {idDocumento, idEjemplar}){
+            const documento = await Documento.findById(idDocumento);
+            const ejemplar = await Ejemplar.findById(idEjemplar);
+            documento.ejemplares.push(ejemplar);
+            await documento.save();
             return documento;
         },
         async deleteDocumento(obj, {id}){
@@ -249,7 +270,9 @@ const resolvers = {
         },
         
         async addEjemplar(obj, {input}){
-            let {idDocumento, estado, ubicacion} = input;
+            let {idDocumento,
+                estado,
+                ubicacion} = input;
             let buscaDocumento = await Documento.findById(idDocumento);
             if(buscaDocumento===null){
                 //Exception
@@ -259,10 +282,20 @@ const resolvers = {
                 return ejemplar;
             }
         },
-        /* async updateEjemplar(obj, {id, input}){
-            const ejemplar = await Ejemplar.findByIdAndUpdate(id, input);
+        async prestamoDeEjemplar(obj, {idEjemplar, idPrestamo}){
+            const ejemplar = await Ejemplar.findById(idEjemplar);
+            const prestamo = await Prestamo.findById(idPrestamo);
+            ejemplar.prestamos.push(prestamo);
+            await ejemplar.save();
             return ejemplar;
-        }, */
+        },
+        async detalleDeEjemplar(obj, {idEjemplar, idDetalle}){
+            const ejemplar = await Ejemplar.findById(idEjemplar);
+            const detalle = await DetalleSolicitud.findById(idDetalle);
+            ejemplar.detalles.push(detalle);
+            await ejemplar.save();
+            return ejemplar;
+        },
         async deleteEjemplar(obj, {id}){
             await Ejemplar.deleteOne({_id: id});
             return {
@@ -297,10 +330,6 @@ const resolvers = {
                 return prestamo;
             }
         },
-        /* async updatePrestamo(obj, {id, input}){
-            const prestamo = await Prestamo.findByIdAndUpdate(id, input);
-            return prestamo;
-        }, */
         async deletePrestamo(obj, {id}){
             await Prestamo.deleteOne({_id: id});
             return {
@@ -313,8 +342,18 @@ const resolvers = {
             await usuario.save();
             return usuario;
         },
-        async updateUsuario(obj, {id, input}){
-            const usuario = await Usuario.findByIdAndUpdate(id, input);
+        async prestamoDeUsuario(obj, {idUsuario, idPrestamo}){
+            const usuario = await Usuario.findById(idUsuario);
+            const prestamo = await Prestamo.findById(idPrestamo);
+            usuario.prestamos.push(prestamo);
+            await usuario.save();
+            return usuario;
+        },
+        async solicitudDeUsuario(obj, {idUsuario, idSolicitud}){
+            const usuario = await Usuario.findById(idUsuario);
+            const solicitud = await Solicitud.findById(idSolicitud);
+            usuario.solicitudes.push(solicitud);
+            await usuario.save();
             return usuario;
         },
         async deleteUsuario(obj, {id}){
@@ -341,10 +380,6 @@ const resolvers = {
                 return solicitud;
             }
         },
-        /* async updateSolicitud(obj, {id, input}){
-            const solicitud = await Solicitud.findByIdAndUpdate(id, input);
-            return solicitud;
-        }, */
         async deleteSolicitud(obj, {id}){
             await Solicitud.deleteOne({_id: id});
             return {
@@ -364,21 +399,23 @@ const resolvers = {
                     idSolicitud: buscaSolicitud._id,
                     idEjemplar: buscaEjemplar._id
                 });
-                await detalleSolicitud.save();
-                return detalleSolicitud;
+                await detalle.save();
+                return detalle;
             }
         },
-        /* async updateDetalleSolicitud(obj, {id, input}){
-            const detalleSolicitud = await DetalleSolicitud.findByIdAndUpdate(id, input);
-            return detalleSolicitud;
-        }, */
+        async detalleDeSolicitud(obj, {idSolicitud, idDetalle}){
+            const solicitud = await Solicitud.findById(idSolicitud);
+            const detalle = await DetalleSolicitud.findById(idDetalle);
+            solicitud.detalles.push(detalle);
+            await solicitud.save();
+            return solicitud;
+        },
         async deleteDetalleSolicitud(obj, {id}){
             await DetalleSolicitud.deleteOne({_id: id});
             return {
                 message: "DetalleSolicitud eliminado"
             }
         },
-        
     }
 }
 

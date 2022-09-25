@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 const prestamoSchema = new mongoose.Schema( {
     tipo: String,
-    idEjemplar: {type: mongoose.Schema.ObjectId, ref: 'ejemplar'},
+    idUsuario: {type: mongoose.Schema.ObjectId, ref: 'Usuario'},
+    idEjemplar: {type: mongoose.Schema.ObjectId, ref: 'Ejemplar'},
     fecha_prestamo: String,
     hora_prestamo: String,
     fecha_devolucion: String,
@@ -13,4 +14,4 @@ const prestamoSchema = new mongoose.Schema( {
     hora_devolucion_real: String
 });
 
-module.exports = mongoose.model('prestamo', prestamoSchema);
+module.exports = mongoose.model('Prestamo', prestamoSchema);

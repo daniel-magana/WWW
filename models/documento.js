@@ -9,7 +9,8 @@ const documentoSchema = new mongoose.Schema( {
     temporada: String,
     edicion: String,
     categoria: String,
-    tipo_medio: String
+    tipo_medio: String,
+    ejemplares: [{type: mongoose.Schema.ObjectId, ref: 'Ejemplar'}]
 });
 
-module.exports = mongoose.model('documento', documentoSchema);
+module.exports = mongoose.model('Documento', documentoSchema);

@@ -7,7 +7,9 @@ const usuarioSchema = new mongoose.Schema( {
     apellidos: String,
     direccion: String,
     telefono: String,
-    activo: String
+    activo: String,
+    prestamos: [{type: mongoose.Schema.ObjectId, ref: 'Prestamo'}],
+    solicitudes: [{type: mongoose.Schema.ObjectId, ref: 'Solicitud'}]
 });
 
-module.exports = mongoose.model('usuario', usuarioSchema);
+module.exports = mongoose.model('Usuario', usuarioSchema);

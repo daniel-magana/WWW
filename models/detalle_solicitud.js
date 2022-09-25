@@ -2,8 +2,8 @@
 const mongoose = require('mongoose');
 
 const detalleSolicitudSchema = new mongoose.Schema( {
-    idSolicitud: {type: mongoose.Schema.ObjectId, ref: 'solicitud'},
-    idEjemplar: {type: mongoose.Schema.ObjectId, ref: 'ejemplar'}
+    idSolicitud: {type: mongoose.Schema.ObjectId, ref: 'Solicitud'},
+    idEjemplar: {type: mongoose.Schema.ObjectId, ref: 'Ejemplar'}
 });
 
-module.exports = mongoose.model('detalleSolicitud', detalleSolicitudSchema);
+module.exports = mongoose.model('DetalleSolicitud', detalleSolicitudSchema);
