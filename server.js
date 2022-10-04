@@ -143,6 +143,12 @@ input DetalleSolicitudInput{
     idEjemplar: String!
 }
 
+input devolucionInput{
+    idEjemplar: String!
+    fecha_devolucion_real: String!
+    hora_devolucion_real: String!
+}
+
 
 
 type Query{
@@ -177,6 +183,7 @@ type Mutation{
     
     addPrestamo(input: PrestamoInput): Prestamo
     deletePrestamo(id: ID!): Alert
+    devolucion(input: devolucionInput): Prestamo
 
     addUsuario(input: UsuarioInput): Usuario
     prestamoDeUsuario(idUsuario: ID!, idPrestamo: ID!): Usuario
@@ -334,6 +341,24 @@ const resolvers = {
             await Prestamo.deleteOne({_id: id});
             return {
                 message: "Prestamo eliminado"
+            }
+        },
+        async devolucion(obj, {input}){
+            //Recibe el id del ejemplar a devolver y la fecha y hora de devolucion
+            //Busca el prestamo que tenga el id del ejemplar y el ultimo prestamo que tenga el ejemplar
+            let {idEjemplar,
+                fecha_devolucion_real,
+                hora_devolucion_real} = input;
+            let buscaEjemplar = await Ejemplar.findById(idEjemplar);
+            if(buscaEjemplar===null){
+                //Exception
+            }else{
+                const idPrestamo = buscaEjemplar.prestamos[buscaEjemplar.prestamos.length-1];
+                const prestamo = await Prestamo.findById(idPrestamo);
+                prestamo.fecha_devolucion_real = fecha_devolucion_real;
+                prestamo.hora_devolucion_real = hora_devolucion_real;
+                await prestamo.save();
+                return prestamo;
             }
         },
         
