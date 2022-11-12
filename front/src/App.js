@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import Catalogo from './components/Catalogo';
 
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
       <Navbar></Navbar>
       <div className='container'>
           {/* aqui ocurre la magia */}
-          <Home></Home>
+          <Catalogo></Catalogo>
       </div>
       <Footer></Footer>
     </div>
