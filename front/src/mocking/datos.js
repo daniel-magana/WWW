@@ -1,4 +1,4 @@
-let datos = {
+let documentos = {
     "data": {
         "getDocumentos": [
             {
@@ -41,4 +41,23 @@ let datos = {
     }
 }
 
-export default datos;
+let solicitud = {
+    "data": {
+        "getSolicitud": [
+            {
+                "tipo": "libro",
+                "titulo": "tuneles",
+                "autor": "nose",
+                "categoria": "ficcion"
+            },
+            {
+                "tipo": "Novela",
+                "titulo": "El juego de Ender",
+                "autor": "Orson Scott Card",
+                "categoria": "Ciencia ficción"
+            }
+        ]
+    }
+}
+
+export default {solicitud, documentos};

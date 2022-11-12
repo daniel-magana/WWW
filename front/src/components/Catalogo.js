@@ -1,5 +1,5 @@
 import React from "react";
-import datos from '../mocking/datos';
+import documentos from '../mocking/datos';
 
 class Catalogo extends React.Component{
     render(){
@@ -19,7 +19,7 @@ class Catalogo extends React.Component{
                 </thead>
                 <tbody id="myTable">
                     {
-                        datos.data.getDocumentos.map((item, index) => {
+                        documentos.data.getDocumentos.map((item, index) => {
                             return (
                                 <tr>
                                     <td>{item.titulo}</td>
