@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Catalogo from './components/Catalogo';
+import Solicitudes from './components/Solicitudes';
+import Solicitud from './components/Solicitud';
 
 
 function App() {
@@ -12,7 +14,7 @@ function App() {
       <Navbar></Navbar>
       <div className='container'>
           {/* aqui ocurre la magia */}
-          <Catalogo></Catalogo>
+          <Solicitud></Solicitud>
       </div>
       <Footer></Footer>
     </div>
