@@ -40,3 +40,5 @@ let datos = {
         ]
     }
 }
+
+export default datos;
