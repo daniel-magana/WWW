@@ -60,4 +60,4 @@ let solicitud = {
     }
 }
 
-export default {solicitud, documentos};
+export {solicitud, documentos};

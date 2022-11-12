@@ -9,8 +9,20 @@ class Home extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 flex">
-                                <button className="btn btn-primary">Ver Catálogo</button>
-                                <button className="btn btn-secondary">Ver Solicitudes</button>
+                                <div className="row">
+                                    <div className="col-lg-3"></div>
+                                    <div className="col-lg-2">
+                                    <button className="btn btn-primary">Ver Catálogo</button>
+                                    </div>
+                                    <div className="col-lg-2">
+                                    <button className="btn btn-secondary">Ver Solicitud</button>
+                                    </div>
+                                    <div className="col-lg-2">
+                                    <button className="btn btn-danger">Ver Solicitudes</button>
+                                    </div>
+                                    <div className="col-lg-3"></div>
+                                
+                            </div>
                             </div>
                         </div>
                     </div>

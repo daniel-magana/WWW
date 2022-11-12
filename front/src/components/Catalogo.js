@@ -1,5 +1,5 @@
 import React from "react";
-import documentos from '../mocking/datos';
+import {documentos} from '../mocking/datos';
 
 class Catalogo extends React.Component{
     render(){
@@ -37,8 +37,26 @@ class Catalogo extends React.Component{
                     }
                 </tbody>
             </table>
-            <button className="btn btn-warning mt-3 px-3">Volver</button>
-            <button type="submit" className="btn btn-primary mt-3">Agregar a Solicitud</button>
+            <button type="button" className="btn btn-warning mt-3">Volver</button>
+            <button type="button" className="btn btn-info mt-3" data-toggle="modal" data-target="#myModal">Agregar a Solicitud</button>
+
+            <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Documentos Agregados</h4>
+                </div>
+                <div class="modal-body">
+                <p>Los documentos se agregaron correctamente.</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            </div>
+            </div>
             </form>
             </div>
 

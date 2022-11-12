@@ -14,7 +14,7 @@ function App() {
       <Navbar></Navbar>
       <div className='container'>
           {/* aqui ocurre la magia */}
-          <Solicitud></Solicitud>
+          <Catalogo></Catalogo>
       </div>
       <Footer></Footer>
     </div>
