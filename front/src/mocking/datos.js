@@ -2,16 +2,16 @@ let documentos = {
     "data": {
         "getDocumentos": [
             {
-                "tipo": "libro",
-                "titulo": "tuneles",
-                "autor": "nose",
-                "categoria": "ficcion"
+                "tipo": "li",
+                "titulo": "tu",
+                "autor": "no",
+                "categoria": "ficn"
             },
             {
-                "tipo": "Novela",
+                "tipo": "Na",
                 "titulo": "El juego de Ender",
                 "autor": "Orson Scott Card",
-                "categoria": "Ciencia ficción"
+                "categoria": "Ciención"
             },
             {
                 "tipo": "Novela",
