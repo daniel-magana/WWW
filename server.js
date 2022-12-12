@@ -154,6 +154,7 @@ input devolucionInput{
 type Query{
     getDocumentos: [Documento]
     getDocumento(id: ID!): Documento
+    getDocumentoPorTitulo(titulo: String!): Documento
     
     getEjemplares: [Ejemplar]
     getEjemplar(id: ID!): Ejemplar
@@ -210,6 +211,10 @@ const resolvers = {
             const documento = await Documento.findById(id).populate("ejemplares", "id");
             return documento;
         },
+        async getDocumentoPorTitulo(obj, {titulo}){
+            const documento = await Documento.findOne({titulo: titulo}).populate("ejemplares", "id");
+            return documento;
+        }, //Usar esta query
         
         async getEjemplares(obj){
             const ejemplares = await Ejemplar.find().populate([{path: "idDocumento", select: "id"}, {path: "prestamos", select: "id"}, {path: "detalles", select: "id"}]);

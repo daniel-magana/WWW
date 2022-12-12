@@ -1,27 +1,40 @@
 import React from "react";
-import {documentos} from '../mocking/datos';
+//import {documentos} from '../mocking/datos';
 import {useQuery, gql} from '@apollo/client';
+//import {OBTENER_DOCUMENTOS} from "./Query";
+//import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 
-const OBTENER_DOCUMENTOS = gql`
-query Query {
-    getDocumentos {
-      tipo
-      titulo
-      autor
-      categoria
-    }
-  }
-`;
+//  const client = new ApolloClient({
+//    uri: 'http://localhost:8090/graphql',
+//    cache: new InMemoryCache()
+//  })
 
+
+
+    
 function Catalogo(){
+    const OBTENER_DOCUMENTOS = gql`
+    query Query {
+        getDocumentos {
+        tipo
+        titulo
+        autor
+        categoria
+        }
+    }
+    `;
+
+
     const {data, loading, error} = useQuery(OBTENER_DOCUMENTOS);
     if (data){
-        console.log(data);
+         console.log(data);
     }else if (loading){
-        console.log("Cargando datos...");
+         console.log("Cargando datos...");
     }else if (error){
-        console.log(error);
-    }
+         console.log(error);
+    }else{
+        console.log("HOLA SEBA");
+    };
     return(
         <div class="container">
         <h2>Catálogo</h2>
@@ -80,6 +93,5 @@ function Catalogo(){
         </div>
     );
 }
-
 
 export default Catalogo;

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 class Solicitudes extends React.Component{
     render(){
@@ -31,7 +32,9 @@ class Solicitudes extends React.Component{
                 </tr>
                 </tbody>
             </table>
+            <Link type="button" className="btn btn-warning mt-3" to='/'>Volver al Home</Link>
             </div>
+            
         );
     }
 }

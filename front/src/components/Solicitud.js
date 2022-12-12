@@ -1,5 +1,6 @@
 import React from "react";
 import {solicitud} from "../mocking/datos";
+import {Link} from 'react-router-dom';
 
 class Solicitud extends React.Component{
     render(){
@@ -37,7 +38,7 @@ class Solicitud extends React.Component{
                     }
                 </tbody>
             </table>
-            <button type="button" className="btn btn-warning mt-3">Volver</button>
+            <Link type="button" className="btn btn-warning mt-3" to='/'>Volver al Home</Link>
             <button type="button" className="btn btn-info mt-3" data-toggle="modal" data-target="#myModal">Enviar Solicitud</button>
 
             <div class="modal fade" id="myModal" role="dialog">
