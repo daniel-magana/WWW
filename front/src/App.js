@@ -40,10 +40,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <div className="App">
-      {/* <Navbar></Navbar> */}
       <div className='container'>
           {/* aqui ocurre la magia */}
-          {/* <Catalogo></Catalogo> */}
           <RouterProvider router={router}></RouterProvider>
       </div>
       <Footer></Footer>
