@@ -1,6 +1,8 @@
 import React from "react";
 import {documentos} from '../mocking/datos';
 import {useQuery, gql} from '@apollo/client';
+import Navbar from "./Navbar";
+import {Link} from 'react-router-dom';
 
 const OBTENER_DOCUMENTOS = gql`
 query Query {
@@ -24,6 +26,7 @@ function Catalogo(){
     }
     return(
         <div class="container">
+        <Navbar></Navbar>
         <h2>Catálogo</h2>
         <form action="/action_page.php">
         <table class="table table-bordered table-striped">
@@ -56,7 +59,7 @@ function Catalogo(){
                 }
             </tbody>
         </table>
-        <button type="button" className="btn btn-warning mt-3">Volver</button>
+        <Link type="button" className="btn btn-warning mt-3" to='/'>Volver al Home</Link>
         <button type="button" className="btn btn-info mt-3" data-toggle="modal" data-target="#myModal">Agregar a Solicitud</button>
 
         <div class="modal fade" id="myModal" role="dialog">

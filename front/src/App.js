@@ -7,21 +7,44 @@ import Catalogo from './components/Catalogo';
 import Solicitudes from './components/Solicitudes';
 import Solicitud from './components/Solicitud';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8090/graphql',
   cache: new InMemoryCache()
 });
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home></Home>
+  },
+  {
+    path: '/Catalogo',
+    element: <Catalogo></Catalogo>
+  },
+  {
+    path: '/Solicitud',
+    element: <Solicitud></Solicitud>
+  },
+  {
+    path: '/Solicitudes',
+    element: <Solicitudes></Solicitudes>
+  }
+]
+);
+
+
 function App() {
   
   return (
     <ApolloProvider client={client}>
     <div className="App">
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <div className='container'>
           {/* aqui ocurre la magia */}
-          <Catalogo></Catalogo>
+          {/* <Catalogo></Catalogo> */}
+          <RouterProvider router={router}></RouterProvider>
       </div>
       <Footer></Footer>
     </div>

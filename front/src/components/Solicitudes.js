@@ -1,9 +1,12 @@
 import React from "react";
+import {Link} from 'react-router-dom';
+import Navbar from "./Navbar";
 
 class Solicitudes extends React.Component{
     render(){
         return(
             <div class="container mt-2">
+            <Navbar></Navbar>
             <h2>Solicitudes vigentes</h2>        
             <table class="table table-striped">
                 <thead>
@@ -31,6 +34,7 @@ class Solicitudes extends React.Component{
                 </tr>
                 </tbody>
             </table>
+            <Link type="button" className="btn btn-warning mt-3" to='/'>Volver al Home</Link>
             </div>
         );
     }

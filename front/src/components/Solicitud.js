@@ -1,10 +1,13 @@
 import React from "react";
 import {solicitud} from "../mocking/datos";
+import {Link} from 'react-router-dom';
+import Navbar from "./Navbar";
 
 class Solicitud extends React.Component{
     render(){
         return(
             <div class="container">
+            <Navbar></Navbar>
             <h2>Resumen Solicitud</h2>
             <form action="/action_page.php">
             <table class="table table-bordered table-striped">
@@ -37,7 +40,7 @@ class Solicitud extends React.Component{
                     }
                 </tbody>
             </table>
-            <button type="button" className="btn btn-warning mt-3">Volver</button>
+            <Link type="button" className="btn btn-warning mt-3" to='/'>Volver al Home</Link>
             <button type="button" className="btn btn-info mt-3" data-toggle="modal" data-target="#myModal">Enviar Solicitud</button>
 
             <div class="modal fade" id="myModal" role="dialog">
