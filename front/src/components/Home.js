@@ -5,12 +5,12 @@ import Navbar from "./Navbar";
 class Home extends React.Component{
     render(){
         return(
-            <div className="container mt-2 mb-2">
+            <div className="container fluid" Style='width: 100%'>
                 <Navbar></Navbar>
                 <div className="row grow-1 justify-content-center">
                         <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div className="row">
-                                <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
+                            {/* <div className="row"> */}
+                                <div className="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
                                 <div className="card" Style="width: 100%; height: 100%;">
                                 <div Style="margin-left:10px;margin-top:25px">    
                                 <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" fill="currentColor" className="bi bi-book" viewBox="0 0 16 16">
@@ -26,7 +26,7 @@ class Home extends React.Component{
                                 
                                 
     
-                                <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
+                                <div className="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
                                 <div className="card" Style="width: 100%;height: 100%;">
                                 <div Style=" margin-left: 10px; margin-top:25px"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" fill="currentColor" className="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
@@ -36,12 +36,12 @@ class Home extends React.Component{
                                 <div className="card-body">
                                     <h5 className="card-title">Realizar Solicitud</h5>
                                     <p className="card-text">Revisa la solicitud en proceso antes de enviarla.</p>
-                                    <Link className="btn btn-secondary" to='/Solicitud'>Ver Solicitud</Link>
+                                    <Link className="btn btn-secondary" to='/Buscador'>Ver Solicitud</Link>
                                 </div>
                                 </div>                                
                                 </div>
                                 
-                                <div className="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
+                                <div className="col-10 col-sm-4 col-md-4 col-lg-4 col-xl-4 justify-content-center">
                                 <div className="card" Style="width: 100%; height: 100%;">
                                 <div Style="margin-left:10px;margin-top:25px"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" fill="currentColor" className="bi bi-file-earmark" viewBox="0 0 16 16">
@@ -55,7 +55,7 @@ class Home extends React.Component{
                                 </div>
 
                                 
-                                </div>
+                                {/* </div> */}
 
 
                             </div>

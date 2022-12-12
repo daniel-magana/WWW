@@ -154,6 +154,7 @@ input devolucionInput{
 type Query{
     getDocumentos: [Documento]
     getDocumento(id: ID!): Documento
+    getDocumentoPorTitulo(titulo: String!): Documento
     
     getEjemplares: [Ejemplar]
     getEjemplar(id: ID!): Ejemplar
@@ -163,6 +164,7 @@ type Query{
     
     getUsuarios: [Usuario]
     getUsuario(id: ID!): Usuario
+    getLogin(rut: String!): Usuario
     
     getSolicitudes: [Solicitud]
     getSolicitud(id: ID!): Solicitud
@@ -210,6 +212,10 @@ const resolvers = {
             const documento = await Documento.findById(id).populate("ejemplares", "id");
             return documento;
         },
+        async getDocumentoPorTitulo(obj, {titulo}){
+            const documento = await Documento.findOne({titulo: titulo}).populate("ejemplares", "id");
+            return documento;
+        }, //Usar esta query
         
         async getEjemplares(obj){
             const ejemplares = await Ejemplar.find().populate([{path: "idDocumento", select: "id"}, {path: "prestamos", select: "id"}, {path: "detalles", select: "id"}]);
@@ -236,6 +242,10 @@ const resolvers = {
         async getUsuario(obj, {id}){
             const usuario = await Usuario.findById(id).populate([{path: "prestamos", select: "id"}, {path: "solicitudes", select: "id"}]);
             return usuario;
+        },
+        async getLogin(obj, {rut}){
+            const Login = await Usuario.findOne({rut: rut});
+            return Login;
         },
         
         async getSolicitudes(obj){

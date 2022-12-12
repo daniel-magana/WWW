@@ -1,8 +1,9 @@
-import React from "react";
+ import React from "react";
 import {documentos} from '../mocking/datos';
 import {useQuery, gql} from '@apollo/client';
 import Navbar from "./Navbar";
 import {Link} from 'react-router-dom';
+// import DocumentList from './Buscador_doc'
 
 const OBTENER_DOCUMENTOS = gql`
 query Query {
