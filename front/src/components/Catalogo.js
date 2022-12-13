@@ -1,8 +1,9 @@
-import React from "react";
+ import React, {useState} from "react";
 import {documentos} from '../mocking/datos';
 import {useQuery, gql} from '@apollo/client';
 import Navbar from "./Navbar";
 import {Link} from 'react-router-dom';
+// import DocumentList from './Buscador_doc'
 
 const OBTENER_DOCUMENTOS = gql`
 query Query {
@@ -23,11 +24,49 @@ function Catalogo(){
         console.log("Cargando datos...");
     }else if (error){
         console.log(error);
+    };
+
+    var lista=[];
+    data && data.getDocumentos.map((item, index)=>{
+        lista.push(item)
+    })
+    const [searchText, setSearchText] = useState("");
+    const [datos, setData] = useState(lista);
+
+    const excludeColumns = ["id", "color"];
+
+    const handleChange = value => {
+        setSearchText(value);
+        filterData(value);
+    };
+
+    const filterData = (value) => {
+        const lowercasedValue = value.toLowerCase().trim();
+        if (lowercasedValue === "") setData(lista);
+        else {
+        const filteredData = lista.filter(item => {
+            return Object.keys(item).some(key =>
+            excludeColumns.includes(key) ? false : item[key].toString().toLowerCase().includes(lowercasedValue)
+            );
+        });
+        setData(filteredData);
+        }
     }
+
+
+
+
     return(
         <div class="container">
         <Navbar></Navbar>
         <h2>Catálogo</h2>
+        Buscar: <input
+        style={{ marginLeft: 5 }}
+        type="text"
+        placeholder="Escriba para buscar..."
+        value={searchText}
+        onChange={e => handleChange(e.target.value)}
+        />
         <form action="/action_page.php">
         <table class="table table-bordered table-striped">
             <thead>
@@ -41,13 +80,13 @@ function Catalogo(){
             </thead>
             <tbody id="myTable">
                 {
-                    data && data.getDocumentos.map((item, index) => {
+                    datos.map((d, i) => {
                         return (
-                            <tr>
-                                <td>{item.titulo}</td>
-                                <td>{item.tipo}</td>
-                                <td>{item.autor}</td>
-                                <td>{item.categoria}</td>
+                              <tr>            
+                                <td>{d.titulo}</td>
+                                <td>{d.tipo}</td>
+                                <td>{d.autor}</td>
+                                <td>{d.categoria}</td>
                                 <td>
                                     <div className="form-check">
                                         <input type="checkbox" className="form-check-input" id="check1" name="option1" value="something" />

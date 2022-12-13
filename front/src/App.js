@@ -40,7 +40,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <div className="App">
-      <div className='container'>
+      <div className='container fluid' Style='width:100%;'>
           {/* aqui ocurre la magia */}
           <RouterProvider router={router}></RouterProvider>
       </div>
