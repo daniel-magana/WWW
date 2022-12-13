@@ -6,7 +6,6 @@ import Home from './components/Home';
 import Catalogo from './components/Catalogo';
 import Solicitudes from './components/Solicitudes';
 import Solicitud from './components/Solicitud';
-import Prueba from './components/Prueba';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -31,10 +30,6 @@ const router = createBrowserRouter([
   {
     path: '/Solicitudes',
     element: <Solicitudes></Solicitudes>
-  },
-  {
-    path: '/Buscador',
-    element: <Prueba />
   }
 ]
 );

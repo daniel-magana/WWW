@@ -36,7 +36,7 @@ class Home extends React.Component{
                                 <div className="card-body">
                                     <h5 className="card-title">Realizar Solicitud</h5>
                                     <p className="card-text">Revisa la solicitud en proceso antes de enviarla.</p>
-                                    <Link className="btn btn-secondary" to='/Buscador'>Ver Solicitud</Link>
+                                    <Link className="btn btn-secondary" to='/Solicitud'>Ver Solicitud</Link>
                                 </div>
                                 </div>                                
                                 </div>
